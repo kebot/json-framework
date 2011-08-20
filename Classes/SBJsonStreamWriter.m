@@ -232,10 +232,12 @@ static NSNumber *kNegativeInfinity;
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
-	}
-
-	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [o class]];
-	return NO;
+	} else {
+        NSString * str_value = [NSString stringWithFormat:@"%@",o];
+        return [self writeValue:str_value];
+    }
+//	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [o class]];
+//	return NO;
 }
 
 static const char *strForChar(int c) {
